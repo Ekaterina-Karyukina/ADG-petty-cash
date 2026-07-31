@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ADG Petty Cash</title>
 
+
 <style>
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #F7F1E8;
-    color: #4A3520;
+    margin:0;
+    padding:40px 20px;
+    background:#f8f3eb;
+    font-family:Arial, sans-serif;
+    color:#4a3825;
 }
 
 
 .container {
 
-    max-width: 520px;
-    margin: 40px auto;
-    background: #ffffff;
+    max-width:420px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(120,80,20,0.15);
 
-    padding: 35px;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 10px 30px rgba(120,90,40,0.15);
-
-    border: 1px solid #D8C29A;
 }
 
 
 h1 {
 
     text-align:center;
-
-    font-size:30px;
-
+    color:#8b6418;
     margin-bottom:35px;
-
-    color:#4A3520;
 
 }
 
@@ -50,59 +44,39 @@ h1 {
 label {
 
     display:block;
-
     margin-top:18px;
-
     margin-bottom:7px;
-
     font-weight:600;
 
-    font-size:16px;
-
 }
-
 
 
 input,
 select,
 textarea {
 
-    width:100%;
 
+    width:100%;
     box-sizing:border-box;
 
-    padding:14px;
+    padding:12px;
+
+    border:1px solid #d8b982;
 
     border-radius:12px;
 
-    border:1px solid #D8C29A;
+    font-size:15px;
 
-    font-size:16px;
-
-    background:#FFFDF9;
+    background:#fffdf9;
 
 }
+
 
 
 textarea {
 
     height:100px;
-
     resize:none;
-
-}
-
-
-
-input:focus,
-select:focus,
-textarea:focus {
-
-    outline:none;
-
-    border-color:#8B641C;
-
-    box-shadow:0 0 5px rgba(139,100,28,0.3);
 
 }
 
@@ -110,21 +84,21 @@ textarea:focus {
 
 button {
 
-    margin-top:30px;
+    margin-top:25px;
 
     width:100%;
 
-    padding:16px;
+    padding:14px;
 
     border:none;
 
     border-radius:14px;
 
-    background:#8B641C;
+    background:#93691c;
 
     color:white;
 
-    font-size:18px;
+    font-size:17px;
 
     font-weight:bold;
 
@@ -136,21 +110,22 @@ button {
 
 button:hover {
 
-    background:#6F4F16;
+    background:#765015;
 
 }
 
 
 
-#status {
-
-    margin-top:20px;
+#message {
 
     text-align:center;
+
+    margin-top:20px;
 
     font-weight:bold;
 
 }
+
 
 
 </style>
@@ -159,18 +134,18 @@ button:hover {
 </head>
 
 
+
 <body>
 
 
 <div class="container">
 
 
-<h1>
-ADG Petty Cash
-</h1>
+<h1>ADG Petty Cash</h1>
 
 
-<form id="cashForm">
+
+<form id="expenseForm">
 
 
 <label>
@@ -178,7 +153,7 @@ ADG Petty Cash
 </label>
 
 <input 
-type="date" 
+type="date"
 id="date"
 required>
 
@@ -188,7 +163,7 @@ required>
 ФИО сотрудника *
 </label>
 
-<input 
+<input
 type="text"
 id="name"
 placeholder="Введите ФИО"
@@ -203,6 +178,7 @@ required>
 <input
 type="number"
 id="amount"
+step="0.01"
 placeholder="0.00"
 required>
 
@@ -212,18 +188,26 @@ required>
 Валюта *
 </label>
 
-
 <select id="currency">
 
-<option>AED</option>
 
-<option>USD</option>
+<option value="AED">
+AED
+</option>
 
-<option>EUR</option>
 
-<option>RUB</option>
+<option value="USD">
+USD
+</option>
+
+
+<option value="EUR">
+EUR
+</option>
+
 
 </select>
+
 
 
 
@@ -234,13 +218,25 @@ required>
 
 <select id="project">
 
-<option value="ADH">ADH</option>
 
-<option value="ADM">ADM</option>
+<option value="ADH">
+ADH
+</option>
 
-<option value="ADIP">ADIP</option>
+
+<option value="ADM">
+ADM
+</option>
+
+
+<option value="ADIP">
+ADIP
+</option>
+
 
 </select>
+
+
 
 
 
@@ -251,31 +247,40 @@ required>
 
 <select id="category">
 
+
 <option value="Materials / Материалы">
 Materials / Материалы
 </option>
+
 
 <option value="Office expenses / Хоз. расходы">
 Office expenses / Хоз. расходы
 </option>
 
+
 <option value="Travel expenses / Командировочные">
 Travel expenses / Командировочные
 </option>
+
 
 <option value="Fuel / Transport">
 Fuel / Transport
 </option>
 
+
 <option value="Meals / Представительские">
 Meals / Представительские
 </option>
+
 
 <option value="Other">
 Other
 </option>
 
+
 </select>
+
+
 
 
 
@@ -292,6 +297,7 @@ placeholder="Описание расхода">
 
 
 
+
 <label>
 Фото чека / подтверждение оплаты *
 </label>
@@ -300,23 +306,24 @@ placeholder="Описание расхода">
 <input
 type="file"
 id="file"
-accept="image/*"
+accept="image/*,.pdf"
 required>
 
 
 
 
 <button type="submit">
-
 Отправить
-
 </button>
+
 
 
 </form>
 
 
-<div id="status"></div>
+
+<div id="message"></div>
+
 
 
 </div>
@@ -325,24 +332,31 @@ required>
 
 
 
+
 <script>
 
 
-const SCRIPT_URL = 
+const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbwW0kIBlEEe1rDFRbJbG96hcSVbOP5kWJ3Db1_HpeDnuqGL58XDHkgGQ416uKLkkag/exec";
 
 
 
+
 document
-.getElementById("cashForm")
-.addEventListener("submit", async function(e){
+.getElementById("expenseForm")
+.addEventListener(
+"submit",
+async function(e){
 
 
 e.preventDefault();
 
 
 
-const file = document.getElementById("file").files[0];
+const file =
+document
+.getElementById("file")
+.files[0];
 
 
 
@@ -356,20 +370,31 @@ return;
 
 
 
-const reader = new FileReader();
+const reader =
+new FileReader();
 
 
 
-reader.onload = async function(){
+reader.onload =
+async function(){
 
 
 
-const base64 = reader.result.split(",")[1];
+const base64 =
+reader.result.split(",")[1];
 
 
 
-const data = new URLSearchParams();
+const data =
+new URLSearchParams();
 
+
+
+
+/*
+ВАЖНО:
+ПОРЯДОК ДОЛЖЕН СОВПАДАТЬ С Apps Script
+*/
 
 
 data.append(
@@ -378,10 +403,12 @@ document.getElementById("date").value
 );
 
 
+
 data.append(
 "employeeName",
 document.getElementById("name").value
 );
+
 
 
 data.append(
@@ -390,10 +417,12 @@ document.getElementById("amount").value
 );
 
 
+
 data.append(
 "currency",
 document.getElementById("currency").value
 );
+
 
 
 data.append(
@@ -402,15 +431,24 @@ document.getElementById("project").value
 );
 
 
+
 data.append(
 "category",
 document.getElementById("category").value
 );
 
 
+
 data.append(
 "comment",
 document.getElementById("comment").value
+);
+
+
+
+data.append(
+"fileBase64",
+base64
 );
 
 
@@ -429,23 +467,20 @@ file.type
 
 
 
-data.append(
-"fileBase64",
-base64
-);
-
-
 
 try {
 
 
+
 await fetch(
-SCRIPT_URL,
+WEB_APP_URL,
 {
 
 method:"POST",
 
-body:data
+body:data,
+
+mode:"no-cors"
 
 }
 
@@ -453,29 +488,30 @@ body:data
 
 
 
-document.getElementById("status").innerHTML =
+
+document.getElementById("message").innerHTML =
 "✓ Расход успешно отправлен";
 
 
+
 document
-.getElementById("cashForm")
+.getElementById("expenseForm")
 .reset();
 
 
 
 }
-
 catch(error){
 
 
-document.getElementById("status").innerHTML =
+
+document.getElementById("message").innerHTML =
 "Ошибка отправки данных";
 
 
-console.log(error);
-
 
 }
+
 
 
 };
@@ -489,7 +525,9 @@ reader.readAsDataURL(file);
 });
 
 
+
 </script>
+
 
 
 </body>
