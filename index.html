@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ADG Petty Cash</title>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #F7F1E8;
+    color: #4A3520;
+}
+
+
+.container {
+
+    max-width: 520px;
+    margin: 40px auto;
+    background: #ffffff;
+
+    padding: 35px;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 30px rgba(120,90,40,0.15);
+
+    border: 1px solid #D8C29A;
+}
+
+
+h1 {
+
+    text-align:center;
+
+    font-size:30px;
+
+    margin-bottom:35px;
+
+    color:#4A3520;
+
+}
+
+
+label {
+
+    display:block;
+
+    margin-top:18px;
+
+    margin-bottom:7px;
+
+    font-weight:600;
+
+    font-size:16px;
+
+}
+
+
+
+input,
+select,
+textarea {
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    border:1px solid #D8C29A;
+
+    font-size:16px;
+
+    background:#FFFDF9;
+
+}
+
+
+textarea {
+
+    height:100px;
+
+    resize:none;
+
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    outline:none;
+
+    border-color:#8B641C;
+
+    box-shadow:0 0 5px rgba(139,100,28,0.3);
+
+}
+
+
+
+button {
+
+    margin-top:30px;
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#8B641C;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+button:hover {
+
+    background:#6F4F16;
+
+}
+
+
+
+#status {
+
+    margin-top:20px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+ADG Petty Cash
+</h1>
+
+
+<form id="cashForm">
+
+
+<label>
+Дата расхода *
+</label>
+
+<input 
+type="date" 
+id="date"
+required>
+
+
+
+<label>
+ФИО сотрудника *
+</label>
+
+<input 
+type="text"
+id="name"
+placeholder="Введите ФИО"
+required>
+
+
+
+<label>
+Сумма *
+</label>
+
+<input
+type="number"
+id="amount"
+placeholder="0.00"
+required>
+
+
+
+<label>
+Валюта *
+</label>
+
+
+<select id="currency">
+
+<option>AED</option>
+
+<option>USD</option>
+
+<option>EUR</option>
+
+<option>RUB</option>
+
+</select>
+
+
+
+<label>
+Проект *
+</label>
+
+
+<select id="project">
+
+
+<option>ADH</option>
+
+<option>ADM</option>
+
+<option>ADIP</option>
+
+
+</select>
+
+
+
+<label>
+Категория расхода *
+</label>
+
+
+<select id="category">
+
+
+<option>
+Materials / Материалы
+</option>
+
+
+<option>
+Office expenses / Хоз. расходы
+</option>
+
+
+<option>
+Travel expenses / Командировочные
+</option>
+
+
+<option>
+Fuel / Transport
+</option>
+
+
+<option>
+Meals / Представительские
+</option>
+
+
+<option>
+Other
+</option>
+
+
+</select>
+
+
+
+<label>
+Комментарий
+</label>
+
+
+<textarea
+id="comment"
+placeholder="Описание расхода">
+</textarea>
+
+
+
+
+<label>
+Фото чека / подтверждение оплаты *
+</label>
+
+
+<input
+type="file"
+id="file"
+accept="image/*"
+required>
+
+
+
+
+<button type="submit">
+
+Отправить
+
+</button>
+
+
+</form>
+
+
+<div id="status"></div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const SCRIPT_URL = 
+"https://script.google.com/macros/s/AKfycbyC_G02N8whzRLeT91ep80XfxP8ogjQBq_jVlA-Sb_dSoTxBw3iCFEjML2fQnLV1w/exec";
+
+
+
+document
+.getElementById("cashForm")
+.addEventListener("submit", async function(e){
+
+
+e.preventDefault();
+
+
+
+const file = document.getElementById("file").files[0];
+
+
+
+if(!file){
+
+alert("Добавьте фото чека");
+
+return;
+
+}
+
+
+
+const reader = new FileReader();
+
+
+
+reader.onload = async function(){
+
+
+
+const base64 = reader.result.split(",")[1];
+
+
+
+const data = new URLSearchParams();
+
+
+
+data.append(
+"date",
+document.getElementById("date").value
+);
+
+
+data.append(
+"name",
+document.getElementById("name").value
+);
+
+
+data.append(
+"amount",
+document.getElementById("amount").value
+);
+
+
+data.append(
+"currency",
+document.getElementById("currency").value
+);
+
+
+data.append(
+"project",
+document.getElementById("project").value
+);
+
+
+data.append(
+"category",
+document.getElementById("category").value
+);
+
+
+data.append(
+"comment",
+document.getElementById("comment").value
+);
+
+
+
+data.append(
+"fileName",
+file.name
+);
+
+
+
+data.append(
+"mimeType",
+file.type
+);
+
+
+
+data.append(
+"fileBase64",
+base64
+);
+
+
+
+try {
+
+
+await fetch(
+SCRIPT_URL,
+{
+
+method:"POST",
+
+body:data
+
+}
+
+);
+
+
+
+document.getElementById("status").innerHTML =
+"✓ Расход успешно отправлен";
+
+
+document
+.getElementById("cashForm")
+.reset();
+
+
+
+}
+
+catch(error){
+
+
+document.getElementById("status").innerHTML =
+"Ошибка отправки данных";
+
+
+console.log(error);
+
+
+}
+
+
+};
+
+
+
+reader.readAsDataURL(file);
+
+
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>
